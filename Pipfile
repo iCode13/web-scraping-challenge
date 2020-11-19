@@ -11,6 +11,8 @@ bs4 = "*"
 pandas = "*"
 requests = "*"
 splinter = "*"
+browser = "*"
+lxml = "*"
 
 [requires]
 python_version = "3.7"

@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
+
 # NASA Mars News scrape for latest news and teaser text
 # # Use Selenium to scrape NASA Mars News
 def get_html_nasa(url_nasa, wait):
@@ -26,12 +27,14 @@ html_nasa = get_html_nasa(url_nasa, wait=5)
 soup_nasa = BeautifulSoup(html_nasa, "html.parser")
 
 news_title = soup_nasa.find_all("div", class_="content_title")[1].text.strip()
-news_p = soup_nasa.find_all("div", class_="article_teaser_body")[0].text.strip()
+news_p = soup_nasa.find_all("div", class_="list_text")[0].text.strip()
 
+print("***********************")
 print("Latest NASA Mars News")
-print("-------------------------")
+print("***********************")
 print(news_title)
 print(news_p)
+
 
 # JPL Mars Space Images
 # Visit the url for JPL Featured Space Image here
@@ -53,12 +56,23 @@ soup_jpl = BeautifulSoup(html_jpl, "html.parser")
 image_url = soup_jpl.find('a', class_="button fancybox")["data-fancybox-href"]
 featured_image_url = "https://www.jpl.nasa.gov" + image_url
 
+print("****************************************")
 print("JPL Mars Space Images - Featured Image")
-print("-------------------------------------------")
+print("****************************************")
 print(featured_image_url)
 
 
+# Mars Facts
+# Data scraping with pandas
+url_facts = "https://space-facts.com/mars/"
+facts_scrape = pd.read_html(url_facts)
 
+# Add scraped data to dataframe
+df_facts = pd.DataFrame(facts_scrape[0])
+df_facts.columns = ['Description', 'Mars']    
 
+# Display HTML table string
+html_facts = df_facts.to_html(header = False, index = False)# Display the HTML table string
+print(html_facts)
 
 
