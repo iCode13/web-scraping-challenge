@@ -20,20 +20,6 @@ def get_html(url, wait):
     
     return html
 
-# Page to be scraped - NASA Mars News
-def get_html_nasa(url_nasa, wait):
-    #fireFoxOptions = webdriver.FirefoxOptions()
-    options = Options()
-    options.headless = True
-    # fireFoxOptions.set_headless()
-    # driver = webdriver.Firefox("C:/Program Files/Mozilla Firefox/geckodriver.exe")
-    driver = webdriver.Firefox(options=options, executable_path=r'driver/geckodriver.exe')
-    driver.get(url_nasa)
-    driver.implicitly_wait(wait)
-    html_nasa = driver.page_source
-    browser.close()
-    
-    return html_nasa
 
 
 
