@@ -10,6 +10,7 @@ selenium = "*"
 bs4 = "*"
 pandas = "*"
 requests = "*"
+splinter = "*"
 
 [requires]
 python_version = "3.7"
