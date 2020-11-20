@@ -13,6 +13,9 @@ requests = "*"
 splinter = "*"
 browser = "*"
 lxml = "*"
+pymongo = "*"
+flask = "*"
+flask-pymongo = "*"
 
 [requires]
 python_version = "3.7"
