@@ -10,7 +10,7 @@ import pandas as pd
 
 
 # NASA Mars News scrape for latest news and teaser text
-# # Use Selenium to scrape NASA Mars News
+# Use Selenium to scrape NASA Mars News
 def get_html_nasa(url_nasa, wait):
     fireFoxOptions = webdriver.FirefoxOptions()
     fireFoxOptions.set_headless()
@@ -65,6 +65,7 @@ print(featured_image_url)
 # Mars Facts
 # Data scraping with pandas
 url_facts = "https://space-facts.com/mars/"
+import lxml
 facts_scrape = pd.read_html(url_facts)
 
 # Add scraped data to dataframe
@@ -74,5 +75,38 @@ df_facts.columns = ['Description', 'Mars']
 # Display HTML table string
 html_facts = df_facts.to_html(header = False, index = False)# Display the HTML table string
 print(html_facts)
+
+
+# Mars Hemipheres
+def get_html_hemisphere(url_hemisphere, wait):
+    fireFoxOptions = webdriver.FirefoxOptions()
+    fireFoxOptions.set_headless()
+    driver = webdriver.Firefox(options=fireFoxOptions, executable_path=r"C:/Program Files/Mozilla Firefox/geckodriver.exe")
+    driver.get(url_hemisphere)
+    driver.implicitly_wait(wait)
+    html_hemisphere = driver.page_source
+    driver.close()
+    return html_hemisphere
+
+url_hemisphere = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+html_hemisphere = get_html_hemisphere(url_hemisphere, wait = 5)
+soup_hemisphere = BeautifulSoup(html_hemisphere, "html.parser")
+
+# Retrieve the dictionary of hemispheres
+outputs = soup_hemisphere.find_all('div', class_='item')
+hemisphere_image_urls=[]
+for output in outputs:
+    title = output.find('h3').text
+    end_url = output.a['href']
+    x = end_url.replace('search/map','download')
+    dict = {}
+    dict['title'] = title
+    dict['image_url'] = "https://astropedia.astrogeology.usgs.gov" + x + ".tif/full.jpg"
+    hemisphere_image_urls.append(dict)
+
+print("*******************")
+print("Mars Hemispheres ")
+print("*******************")    
+print(hemisphere_image_urls)
 
 
