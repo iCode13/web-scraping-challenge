@@ -4,7 +4,6 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup as bs
 import pandas as pd
-import lxml
 
 
 # NASA Mars News scrape for latest news and teaser text
@@ -24,8 +23,12 @@ url_news = "https://mars.nasa.gov/news/"
 html_news = get_html_news(url_news, wait=5)
 soup_news = bs(html_news, "html.parser")
 
+# Write scraped html to file
+with open('html_news_dump.html', 'w+', encoding='utf-8') as f:
+    f.write(html_news)
+
 news_title = soup_news.find_all("div", class_="content_title")[1].text.strip()
-news_p = soup_news.find_all("div", class_="list_text")[0].text.strip()
+news_p = soup_news.find_all("div", class_="list_text")[1].text.strip()
 
 print("***********************")
 print("Latest NASA Mars News")
@@ -35,7 +38,7 @@ print(news_p)
 
 
 # JPL Mars Space Images
-# Visit the url for JPL Featured Space Image here
+# Use Selenium to scrape JPL Featured Space Image
 def get_html_jpl(url_jpl, wait):
     fireFoxOptions = webdriver.FirefoxOptions()
     fireFoxOptions.set_headless()
@@ -50,6 +53,10 @@ def get_html_jpl(url_jpl, wait):
 url_jpl = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
 html_jpl = get_html_jpl(url_jpl, wait=5)
 soup_jpl = bs(html_jpl, "html.parser")
+
+# Write scraped html to file
+with open('html_jpl_dump.html', 'w+', encoding='utf-8') as f:
+    f.write(html_jpl)
 
 image_url = soup_jpl.find('a', class_="button fancybox")["data-fancybox-href"]
 featured_image_url = "https://www.jpl.nasa.gov" + image_url
@@ -68,9 +75,19 @@ facts_scrape = pd.read_html(url_facts)
 # Add scraped data to dataframe
 df_facts = pd.DataFrame(facts_scrape[0])
 df_facts.columns = ['Description', 'Mars']    
+df_facts = df_facts.set_index('Description')
 
 # Display HTML table string
-html_facts = df_facts.to_html(header = False, index = False)# Display the HTML table string
+html_facts = df_facts.to_html(header = False, index = False)
+
+# Write scraped html to file
+with open('html_facts_dump.html', 'w+', encoding='utf-8') as f:
+    f.write(html_facts)
+
+# Display the HTML table string
+print("************")
+print("Mars Facts")
+print("************")
 print(html_facts)
 
 
@@ -89,6 +106,10 @@ url_hemisphere = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enha
 html_hemisphere = get_html_hemisphere(url_hemisphere, wait = 5)
 soup_hemisphere = bs(html_hemisphere, "html.parser")
 
+# Write scraped html to file
+with open('html_hemisphere_dump.html', 'w+', encoding='utf-8') as f:
+    f.write(html_hemisphere)
+
 # Retrieve the dictionary of hemispheres
 outputs = soup_hemisphere.find_all('div', class_='item')
 hemisphere_image_urls=[]
@@ -98,7 +119,7 @@ for output in outputs:
     x = end_url.replace('search/map','download')
     dict = {}
     dict['title'] = title
-    dict['image_url'] = "https://astropedia.astrogeology.usgs.gov" + x + ".tif/full.jpg"
+    dict['img_url'] = "https://astropedia.astrogeology.usgs.gov" + x + ".tif/full.jpg"
     hemisphere_image_urls.append(dict)
 
 print("*******************")
