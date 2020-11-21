@@ -13,6 +13,8 @@ pymongo = "*"
 flask = "*"
 flask-pymongo = "*"
 uri = "*"
+scrape = "*"
+mongo = "*"
 
 [dev-packages]
 autopep8 = "*"
