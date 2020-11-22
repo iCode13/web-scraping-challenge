@@ -16,6 +16,7 @@ uri = "*"
 scrape = "*"
 mongo = "*"
 flask-cors = "*"
+dnspython = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -14,7 +14,7 @@ def driver_setup():
 
 driver = driver_setup()
 
-mars_data = {}
+mars_info = {}
 
 def scrape():
     # Latest NASA News
@@ -26,8 +26,8 @@ def scrape():
 
     news_title = soup_news.find_all("div", class_="content_title")[0].text.strip()
     news_p = soup_news.find_all("div", class_="list_text")[0].text.strip()
-    mars_data['news_title'] = news_title
-    mars_data['news_paragraph'] = news_p
+    mars_info['news_title'] = news_title
+    mars_info['news_paragraph'] = news_p
 
     # JPL Mars Space Images
     url_jpl = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
@@ -38,7 +38,7 @@ def scrape():
 
     image_url = soup_jpl.find('a', class_="button fancybox")["data-fancybox-href"]
     featured_image_url = "https://www.jpl.nasa.gov" + image_url
-    mars_data['featured_image'] = featured_image_url
+    mars_info['featured_image'] = featured_image_url
 
     # Mars Facts
     url_facts = "https://space-facts.com/mars/"
@@ -47,7 +47,7 @@ def scrape():
     df_facts.columns = ['Description', 'Mars']    
     df_facts = df_facts.set_index('Description')
     html_facts = df_facts.to_html(header = False, index = False)
-    mars_data['facts'] = html_facts
+    mars_info['facts'] = html_facts
 
     # Mars Hemipheres
     url_hemisphere = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
@@ -66,11 +66,11 @@ def scrape():
         dict['title'] = title
         dict['img_url'] = "https://astropedia.astrogeology.usgs.gov" + x + ".tif/full.jpg"
         hemisphere_image_urls.append(dict)
-    mars_data['hemisphere_image'] = hemisphere_image_urls
+    mars_info['hemisphere_image'] = hemisphere_image_urls
 
-    return mars_data
+    return mars_info
     driver.close()
 
 scrape()
-print(mars_data)
+print(mars_info)
 
