@@ -17,6 +17,7 @@ scrape = "*"
 mongo = "*"
 flask-cors = "*"
 dnspython = "*"
+python-dotenv = "*"
 
 [dev-packages]
 autopep8 = "*"

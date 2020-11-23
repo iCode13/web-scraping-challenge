@@ -4,6 +4,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup as bs
 import pandas as pd
+from pprint import pprint
 
 
 # NASA Mars News scrape for latest news and teaser text
@@ -125,6 +126,6 @@ for output in outputs:
 print("*******************")
 print("Mars Hemispheres ")
 print("*******************")    
-print(hemisphere_image_urls)
+pprint(hemisphere_image_urls)
 
 

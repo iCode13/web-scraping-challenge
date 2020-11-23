@@ -3,8 +3,9 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup as bs
 import pandas as pd
-import requests
+from pprint import pprint
 
+# Setup Selenium driver
 def driver_setup():
     fireFoxOptions = webdriver.FirefoxOptions()
     fireFoxOptions.set_headless()
@@ -12,11 +13,9 @@ def driver_setup():
 
     return driver
 
-driver = driver_setup()
-
-mars_info = {}
-
-def scrape():
+# Define scrape function for scraping data
+def scrape(driver):
+    mars_dict = {}
     # Latest NASA News
     url_news = "https://mars.nasa.gov/news/"
     driver.get(url_news)
@@ -25,11 +24,13 @@ def scrape():
     soup_news = bs(html_news, "html.parser")
 
     news_title = soup_news.find_all("div", class_="content_title")[0].text.strip()
+    if not len(soup_news.find_all("div", class_="list_text")):
+        print("empty array")
     news_p = soup_news.find_all("div", class_="list_text")[0].text.strip()
-    mars_info['news_title'] = news_title
-    mars_info['news_paragraph'] = news_p
+    mars_dict['news_title'] = news_title
+    mars_dict['news_paragraph'] = news_p
 
-    # JPL Mars Space Images
+    # Featured Mars Images
     url_jpl = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
     driver.get(url_jpl)
     driver.implicitly_wait(5)
@@ -38,16 +39,15 @@ def scrape():
 
     image_url = soup_jpl.find('a', class_="button fancybox")["data-fancybox-href"]
     featured_image_url = "https://www.jpl.nasa.gov" + image_url
-    mars_info['featured_image'] = featured_image_url
+    mars_dict['featured_image'] = featured_image_url
 
     # Mars Facts
     url_facts = "https://space-facts.com/mars/"
     facts_scrape = pd.read_html(url_facts)
     df_facts = pd.DataFrame(facts_scrape[0])
     df_facts.columns = ['Description', 'Mars']    
-    df_facts = df_facts.set_index('Description')
     html_facts = df_facts.to_html(header = False, index = False)
-    mars_info['facts'] = html_facts
+    mars_dict['facts'] = html_facts
 
     # Mars Hemipheres
     url_hemisphere = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
@@ -66,11 +66,18 @@ def scrape():
         dict['title'] = title
         dict['img_url'] = "https://astropedia.astrogeology.usgs.gov" + x + ".tif/full.jpg"
         hemisphere_image_urls.append(dict)
-    mars_info['hemisphere_image'] = hemisphere_image_urls
+    mars_dict['hemisphere_image'] = hemisphere_image_urls
 
-    return mars_info
+    return mars_dict
     driver.close()
+    
+driver = driver_setup()
+# pprint(scrape(driver))
 
-scrape()
-print(mars_info)
+
+
+
+
+
+
 
