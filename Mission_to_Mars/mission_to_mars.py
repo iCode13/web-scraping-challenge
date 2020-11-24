@@ -75,11 +75,11 @@ facts_scrape = pd.read_html(url_facts)
 
 # Add scraped data to dataframe
 df_facts = pd.DataFrame(facts_scrape[0])
-df_facts.columns = ['Description', 'Mars']    
+df_facts.columns = ['Description', 'Value']    
 df_facts = df_facts.set_index('Description')
 
 # Display HTML table string
-html_facts = df_facts.to_html(header = False, index = False)
+html_facts = df_facts.to_html(header = True, index = False)
 
 # Write scraped html to file
 with open('html_facts_dump.html', 'w+', encoding='utf-8') as f:

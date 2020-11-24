@@ -45,8 +45,8 @@ def scrape(driver):
     url_facts = "https://space-facts.com/mars/"
     facts_scrape = pd.read_html(url_facts)
     df_facts = pd.DataFrame(facts_scrape[0])
-    df_facts.columns = ['Description', 'Mars']    
-    html_facts = df_facts.to_html(header = False, index = False)
+    df_facts.columns = ['Description', 'Value']    
+    html_facts = df_facts.to_html(header = True, index = False)
     mars_dict['facts'] = html_facts
 
     # Mars Hemipheres

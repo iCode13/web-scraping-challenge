@@ -12,7 +12,7 @@
 <body>
   
     <!-- Header and Button for Scraping -->
-    <div class="header" style="background-color: #c4af76">
+    <div class="header" style="background-color: #faf1d7">
         <h1 align=center>Mission to Mars</h1>
         <p  align=center ><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
@@ -20,9 +20,9 @@
 	<!-- Latest Mars News -->
     <div class = "row" >
         <div class = "col-md-12">
-                <h2>Latest Mars News:</h2>
-                <h4>{{ mars_info.news_title }}</h4>
-                <p>{{ mars_info.news_paragraph }}</p>
+                <h3><b>Latest Mars News:</b></h3>
+                <h4><b>{{ mars_info.news_title }}</b></h4>
+                <h5>{{ mars_info.news_paragraph }}</h5>
                 <hr>
         </div>
 	</div>
@@ -30,27 +30,26 @@
 
     <!-- Featuerd Mars Image -->
     <div class="container-fluid" >
-    <div class="row" style=" display: flex;">
-    <div class="col-md-4" style="flex:1;"  >
-      
-        <img src="{{ mars_info.featured_image }}" alt="Mars" align="left" width=100%>
-	    <hr>
-	    <br>
-    </div>
-    
-    
+        <div class="row" style=" display: flex;">
+            <div class="col-md-4" style="flex:1;">
+                <h3><b>Featured Mars Image:</b></h3>
+                <img src="{{ mars_info.featured_image }}" alt="Mars" align="left" width=100%>
+	            <hr>
+	            <br>
+            </div>
+
+
     <!-- Mars Facts -->
     <div class="col-md-4" style="flex:1;">
-                <h2>Mars Facts:</h2>
-                <hr>
-                <p>{{ mars_info.facts | safe }}</p>
-                <hr>   
+        <h3><b>Mars Facts:</b></h3>
+        <p>{{ mars_info.facts | safe }}</p>
+        <hr>   
     </div>
     
     
     <!-- Mars Hemispheres -->
     <div class="col-md-4" style="flex:1;"  >
-        <h2>Mars Hemispheres:</h2></hr>
+        <h3><b>Mars Hemispheres:</b></h3>
                 <div class = "row">
 					<div class = "col-md-12">   
 						{% for e in mars_info.hemisphere_image%}
