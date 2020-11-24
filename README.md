@@ -38,7 +38,6 @@ In this project, a web application was built that scrapes various websites for d
     HTML
     MongoDB Atlas
     geckodriver
-    Jupyter Notebook 1.2.16
     Visual Studio Code 1.51.1
 
 ## Contact
