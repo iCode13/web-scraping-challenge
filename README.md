@@ -28,17 +28,17 @@ In this project, a web application was built that scrapes various websites for d
 ![mongoDB_query](./Mission_to_Mars/screenshots/mongoDB_query.png)
 
 ## Technologies
-    python - version 3.7
-    selenium - version 3.151.0
-    beautifulsoup4 - version 0.0.1 
-    pandas - version 1.1.4
-    pymongo - version 3.11.1
-    flask - version 1.1.2
-    Jinja
-    HTML
-    MongoDB Atlas
-    geckodriver
-    Visual Studio Code 1.51.1
+* Python - version 3.7
+* Selenium - version 3.151.0
+* Beautiful Soup 4 - version 0.0.1 
+* Pandas - version 1.1.4
+* PyMongo - version 3.11.1
+* Flask - version 1.1.2
+* Jinja
+* HTML
+* MongoDB Atlas
+* Geckodriver
+* Visual Studio Code 1.51.1
 
 ## Contact
-Created by [@iCode13](https://github.com/iCode13) - please feel free to contact me with questions.
+Created by [@iCode13](https://github.com/iCode13) - please contact with questions/comments.
